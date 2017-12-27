@@ -1,0 +1,83 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Smart Tensioner</title>
+
+</head>
+
+<body onload='draw(0);' align ="centre">
+
+  <center><div style="border: 1px solid red; padding:5px; min-width:100px; display: inline-block">
+    Connection Status :_____________________
+</div></center>
+
+  <div style="position: relative;">
+    <center>
+      <canvas id="tutorial" width="600" height="400" >Canvas not available.</canvas>
+    </center>
+
+   <!--<script src="speedometer.js"></script>
+      <form id="drawTemp">
+           <input type="text" id="txtSpeed" name="txtSpeed" value="" maxlength="2" />
+            <input type="button" value="Draw" onclick="drawWithInputValue();">
+        </form>-->
+
+   <script>
+
+          var SerialPort = require('serialport');
+          var port = new SerialPort('/dev/cu.usbmodem1421',{encoding: 'ascii',});
+          var a;
+          port.on('readable', function () { 
+            var str = port.read();
+            console.log('Data:', str);
+            a = parseInt(str);
+            console.log('Int:', a);
+
+
+
+    });
+
+        var dialCenter   = [202,195];
+        var needleCenter = [ 13, 121.5 ];
+        var dial = new Image, needle = new Image;
+        window.onload = function(){
+          var c = document.getElementsByTagName('canvas')[0];
+          var ctx = c.getContext('2d');
+          setInterval(function(){
+            ctx.save();
+            ctx.clearRect( 0, 0, c.width, c.height );
+
+            // Center the dial on the canvas.
+            ctx.translate( c.width/2 , c.height/2 );
+            ctx.drawImage( dial, -dialCenter[0], -dialCenter[1] );
+
+            // Center the needle on the canvas.
+            ctx.rotate( (2.3*a) - 0.15 );
+            ctx.drawImage( needle, -needleCenter[0], -needleCenter[1] );
+
+            ctx.restore();
+          },50);
+        };
+        dial.src = 'dial.png';
+        needle.src = 'needle.png';
+    console.log('Arrived');
+
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+
+<div id="data" style="border: 5px solid black; padding:15px; min-width:50px; display: inline-block">
+  <p style="text-align:left;float:left;colour:blue">No Data</p>
+    <script src="usb.js" style="text-align:left;float:left;colour:blue" ></script>
+</div>
+
+<div id="data1" style="border: 5px solid black; padding:15px; min-width:50px; display: inline-block">
+  <p style="text-align:right;float:right;" style="colour:red">No Data</p>
+    <script src="usb.js" style="text-align:right;float:right;colour:blue"></script>
+</div>
+</div>
+</body>
+</html>

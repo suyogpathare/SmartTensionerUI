@@ -1,0 +1,78 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+</head>
+<body>
+
+<div align="center" class="container-fluid" z-index: -1;>
+	 <div id="main">My Lab</div>
+	 <div id="pg-title">Immunoassay Analyzer</div>
+
+	 <div id="data">
+
+	 </div>
+
+<script type="text/javascript">
+	var div = document.getElementById("data");
+	div.textContent = "Hello" ;
+
+
+</script>
+
+
+
+<script>
+var SerialPort = require('serialport');
+var port = new SerialPort('/dev/tty.usbmodem1421',{encoding: 'ascii',});
+
+port.write('main screen turn on', function(err) {
+  if (err) {
+    return console.log('Error on write: ', err.message);
+  }
+  console.log('message written');
+});
+
+// Read data that is available but keep the stream from entering "flowing mode"
+port.on('readable', function () {
+  //console.log("D1 ");
+
+  var str = port.read();
+  //var mylist = str.toString().split("|");
+  console.log('mylist:',str);
+  console.log('Data:', str);
+  var div1 = document.getElementById("data");
+div1.textContent += str ;
+
+
+ //"Head+CMD+Length+Checksum: ", mylist[0]
+        //print "Serial Number: ", mylist[1]
+        //print "Barcode: "+mylist[2]
+        //mylist2 = mystring2.split("|")
+        //print "Item No: "+mylist2[2]
+        //print "Item Name: "+mylist2[5]
+        //print "Item Unit: "+mylist2[6]
+        //print "Test value: "+mylist2[7]
+        //print "Min Value: "+mylist2[8]
+        //print "Max Value: "+mylist2[9]
+        //print "Ref Value: "+mylist2[10]
+        //print "No: "+mylist2[11]
+        //print "ID: "+mylist2[12]
+        //print "Test Time: "+mylist2[13]
+        //print "Sample: "+mylist2[14]
+
+
+
+
+}); </script>
+</div>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+</body>
+
+
+</html>

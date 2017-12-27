@@ -1,0 +1,40 @@
+<html>
+<head>
+  <title> Lets Test this </title>
+</head>
+<body>
+  <canvas id="canvas">
+          Sorry. Your browser does not support HTML5 canvas element.
+      </canvas>
+</body>
+<script>
+    window.onload = function () {
+
+        // GET THE IMAGE.
+        var img = new Image();
+        img.src = 'pin.png';
+
+        // WAIT TILL IMAGE IS LOADED.
+        img.onload = function () {
+            fill_canvas(img);       // FILL THE CANVAS WITH THE IMAGE.
+        }
+
+        function fill_canvas(img) {
+            // CREATE CANVAS CONTEXT.
+            var canvas = document.getElementById('canvas');
+            var ctx = canvas.getContext('2d');
+
+            canvas.width = img.width;
+            canvas.height = img.height;
+
+            ctx.drawImage(img, 0, 0);       // DRAW THE IMAGE TO THE CANVAS.
+        }
+      link.onload=function(){
+    ctx.save(); // save current state
+    ctx.rotate(Math.PI); // rotate
+    ctx.drawImage(link,x,y,20,20); // draws a chain link or dagger
+    ctx.restore(); // restore original states (no rotation etc)
+}
+    }
+</script>
+</html>
